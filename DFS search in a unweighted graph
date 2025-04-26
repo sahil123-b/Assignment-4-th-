@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+
+void dfs(int vertex, const vector<vector<int>>& adjacencyMatrix, vector<bool>& visited, int target) {
+  
+  visited[vertex] = true;
+
+ 
+  if (vertex == target) {
+    cout << "Target node " << target << " found." << endl;
+    return;
+  }
+
+  
+  for (int i = 0; i < adjacencyMatrix.size(); ++i) {
+    
+    if (adjacencyMatrix[vertex][i] == 1 && !visited[i]) {
+      
+      dfs(i, adjacencyMatrix, visited, target);
+    }
+  }
+}
+
+int main() {
+  
+  vector<vector<int>> adjacencyMatrix = {
+    {0, 1, 1, 0, 0}, // Node 0: Connected to 1 and 2
+    {1, 0, 0, 1, 0}, // Node 1: Connected to 0 and 3
+    {1, 0, 0, 0, 1}, // Node 2: Connected to 0 and 4
+    {0, 1, 0, 0, 0}, // Node 3: Connected to 1
+    {0, 0, 1, 0, 0}  // Node 4: Connected to 2
+  };
+
+  
+  int numVertices = adjacencyMatrix.size();
+
+  
+  vector<bool> visited(numVertices, false);
+
+  
+  int target = 3;
+
+  
+  dfs(0, adjacencyMatrix, visited, target);
+
+  return 0;
+}
